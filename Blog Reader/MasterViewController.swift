@@ -18,6 +18,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let context: NSManagedObjectContext = appDel.managedObjectContext
+        
         let url = NSURL(string:"https://www.googleapis.com/blogger/v3/blogs/10861780/posts?key=AIzaSyBvU8NKKtorakPFRLM6BWEX10iw3gEYaso")!
         
         let session = NSURLSession.sharedSession()
@@ -37,6 +41,25 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                         if jsonResult.count > 0 {
                             
                             if let items = jsonResult["items"] as? NSArray {
+                                
+                                let request = NSFetchRequest(entityName: "BlogItems")
+                                
+                                request.returnsObjectsAsFaults = false
+                                
+                                // First we delete all db content
+                                do{ let results = try context.executeFetchRequest(request)
+                                    
+                                    if results.count > 0 {
+                                        
+                                        for result in results {
+                                            
+                                            context.deleteObject(result as! NSManagedObject)
+                                            
+                                            do{ try context.save() } catch {}
+                                        }
+                                    }
+                                    
+                                } catch {}
                                 
                                 for item in items {
                                 
