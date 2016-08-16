@@ -32,11 +32,15 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                 
                 if let data = data {
                     
-                    do{
+                    do{ let jsonResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
                         
-                        let jsonResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                        
-                        print(jsonResult)
+                        if jsonResult.count > 0 {
+                            
+                            if let items = jsonResult["items"] as? NSArray {
+                                
+                                print(items)
+                            }
+                        }
                         
                     } catch {}
                 }
