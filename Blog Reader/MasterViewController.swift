@@ -31,8 +31,14 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             } else {
                 
                 if let data = data {
-                
-                    print(NSString(data: data, encoding: NSUTF8StringEncoding))
+                    
+                    do{
+                        
+                        let jsonResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                        
+                        print(jsonResult)
+                        
+                    } catch {}
                 }
             }
         }
