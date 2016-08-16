@@ -20,10 +20,29 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         let url = NSURL(string:"https://www.googleapis.com/blogger/v3/blogs/10861780/posts?key=AIzaSyBvU8NKKtorakPFRLM6BWEX10iw3gEYaso")!
         
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithURL(url) { (data, response, error) in
+            
+            if error != nil {
+                
+                print(error)
+                
+            } else {
+                
+                if let data = data {
+                
+                    print(NSString(data: data, encoding: NSUTF8StringEncoding))
+                }
+            }
+        }
+        
+        task.resume()
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(insertNewObject(_:)))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
         if let split = self.splitViewController {
             let controllers = split.viewControllers
