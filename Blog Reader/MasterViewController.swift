@@ -38,7 +38,17 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                             
                             if let items = jsonResult["items"] as? NSArray {
                                 
-                                print(items)
+                                for item in items {
+                                
+                                    if let title = item["title"] as? String {
+                                    
+                                        if let content = item["content"] as? String {
+                                        
+                                            print(title)
+                                            print(content)
+                                        }
+                                    }
+                                }
                             }
                         }
                         
