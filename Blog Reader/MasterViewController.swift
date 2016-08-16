@@ -66,9 +66,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                                     if let title = item["title"] as? String {
                                     
                                         if let content = item["content"] as? String {
-                                        
-                                            print(title)
-                                            print(content)
+                                            
+                                            let newPost: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("BlogItems", inManagedObjectContext: context)
+                                            
+                                            newPost.setValue(title, forKey: "title")
+                                            newPost.setValue(content, forKey: "content")
                                         }
                                     }
                                 }
