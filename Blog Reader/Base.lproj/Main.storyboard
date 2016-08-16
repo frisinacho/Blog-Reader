@@ -48,6 +48,9 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Blog Item" id="mOI-FS-AaM"/>
+                    <connections>
+                        <outlet property="webView" destination="kxU-7d-LTc" id="RdS-Yz-qph"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
